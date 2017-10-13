@@ -3,7 +3,7 @@ import cv2
 
 # Identify pixels above the threshold
 # Threshold of RGB > 160 does a nice job of identifying ground pixels only
-def color_thresh(img, rgb_thresh=(160, 160, 160)):
+def color_thresh(img, rgb_thresh=(155, 155, 155)):
     # Create an array of zeros same xy size as img, but single channel
     color_select = np.zeros_like(img[:,:,0])
     # Require that each pixel be above all three threshold values in RGB
@@ -165,6 +165,8 @@ def perception_step(Rover):
                                     scale)
 
 
+
+
     # 7) Update Rover worldmap (to be displayed on right side of screen)
         # Example: Rover.worldmap[obstacle_y_world, obstacle_x_world, 0] += 1
         #          Rover.worldmap[rock_y_world, rock_x_world, 1] += 1
@@ -177,5 +179,6 @@ def perception_step(Rover):
     # Update Rover pixel distances and angles
         # Rover.nav_dists = rover_centric_pixel_distances
         # Rover.nav_angles = rover_centric_angles
-    Rover.nav_dists, Rover.nav_angles = to_polar_coords(obstacle_y_world, obstacle_y_world)
+    Rover.nav_dists, Rover.nav_angles = to_polar_coords(rover_terrain_centric_bin_img[0], 
+                                                        rover_terrain_centric_bin_img[1])
     return Rover
